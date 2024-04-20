@@ -48,15 +48,27 @@
 				</a>
 			</li>
 			<li>
+				<a href="#" data-target="addAbook">
+					<i class='bx bxs-shopping-bag-alt' ></i>
+					<span class="text">Add a book</span>
+				</a>
+			</li>
+			<li>
+				<a href="#" data-target="deleteAbook">
+					<i class='bx bxs-shopping-bag-alt' ></i>
+					<span class="text">Delete a book</span>
+				</a>
+			</li>
+			<li>
 				<a href="#">
 					<i class='bx bxs-message-dots' ></i>
 					<span class="text">Message</span>
 				</a>
 			</li>
 			<li>
-				<a href="#">
+				<a href="#" data-target="addAbook">
 					<i class='bx bxs-group' ></i>
-					<span class="text">Team</span>
+					<span class="text">Add a book</span>
 				</a>
 			</li>
 		</ul>
@@ -193,10 +205,10 @@
 		</main>
 		<!--END MAIN -->
 		<!-- Borrow a book section -->
-		<main class="mainContent hidden" id="borrowAbookContent">
+		<main class="mainContent hidden" id="addAbook">
 			<div class="head-title">
 				<div class="left">
-					<h1>Borrow A book</h1>
+					<h1>Add A book</h1>
 					<ul class="breadcrumb">
 						<li>
 							<a href="#">Dashboard</a>
@@ -216,7 +228,7 @@
 			
 
 
-			<!--<div class="table-data borrowedBookTable2">
+			<div class="table-data borrowedBookTable2">
 				<div class="order">
 					<div class="head">
 						<h3>Borrowed Books</h3>
@@ -224,34 +236,40 @@
 						<i class='bx bx-filter' ></i>
 					</div>
 					<div class="container">
-						<form action="" method="post">
-							<div class="form-group">
-								<label for="">Id</label>
-								<input type="text" required>
+						<form th:action="@{/addAbook}" method="post">
+						<div class="form-group">
+								<label for="NInv">Numéro d'inventaire</label>
+								<input type="number" id="NInv" name="NInv" required>
 							</div>
 							<div class="form-group">
-								<label for="">Title</label>
-								<input type=""  required>
+								<label for="title">Title</label>
+								<input type="text" id="title" name="title" required>
 							</div>
 							<div class="form-group">
-								<label for="">Borrow Date</label>
-								<input type="date"   required>
+								<label for="module">Module</label>
+								<input type="text" id="module" name="module" required>
 							</div>
 							<div class="form-group">
-								<label for="">return Date</label>
-								<input type="date"   required>
+								<label for="author">Author</label>
+								<input type="text" id="author" name="author" required>
 							</div>
-							
+							<div class="form-group">
+								<label for="editor">Editor</label>
+								<input type="text" id="editor" name="editor" required>
+							</div>
+
+
 							<div class="form-group">
 								<input type="submit" value="Ajouter">
 							</div>
 						</form>
 					</div>
+
+
 				</div>
-				
-			</div>-->
+			</div>
 		</main>
-		
+
 
 
 		<script>
@@ -472,6 +490,84 @@ var url2='/api/Books/'+book+'/updateAvailable'
 			</div>
 		</main>
 		<!-- END MAIN -->
+
+
+
+
+		<main class="mainContent hidden" id="deleteAbook">
+			<div class="head-title">
+				<div class="left">
+					<h1>Return A book</h1>
+					<ul class="breadcrumb">
+						<li>
+							<a href="#">Dashboard</a>
+						</li>
+						<li><i class='bx bx-chevron-right' ></i></li>
+						<li>
+							<a class="active" href="#">Home</a>
+						</li>
+					</ul>
+					<form action="#" >
+						<div class="form-input" >
+							<input type="search"  placeholder="Search...">
+							<button type="submit" class="search-btn" onclick="search()"><i class='bx bx-search' ></i></button>
+						</div>
+					</form>
+				</div>
+				<a href="#" class="btn-download">
+					<i class='bx bxs-cloud-download' ></i>
+					<span class="text">Download PDF</span>
+				</a>
+			</div>
+
+
+
+			<div class="table-data borrowedBookTable3" id="deleteAbookTable">
+				<div class="order">
+					<div class="head">
+						<h3>Borrowed Books</h3>
+						<i class='bx bx-search' ></i>
+						<i class='bx bx-filter' ></i>
+					</div>
+					<table >
+						<thead>
+						<tr>
+							<th>Book</th>
+							<th>N°Inventory</th>
+							<th>Title</th>
+							<th>Module</th>
+							<th>Author</th>
+							<th>Editor</th>
+
+						</tr>
+						</thead>
+						<tbody >
+						<tr>
+						<tr th:each="b:${allbooks}">
+							<td>here book image</td>
+							<td th:text="${b.getNInv()}"></td>
+							<td>
+								<p  th:text="${b.getTitle()}"></p>
+							</td>
+							<td th:text="${b.getModule()}"></td>
+							<td th:text="${b.getAuthor()}"></td>
+							<td th:text="${b.getEditor()}"></td>
+
+							<td>
+								<a th:href="@{'/delete/' + ${b.getNInv()}}" onclick="return confirm('Are you sure you want to delete this book?')">
+									<i class='bx bx-trash'></i>
+								</a>
+							</td>
+
+						</tr>
+
+
+						</tbody>
+					</table>
+				</div>
+
+			</div>
+		</main>
 	</section>
 	<!-- CONTENT -->
 

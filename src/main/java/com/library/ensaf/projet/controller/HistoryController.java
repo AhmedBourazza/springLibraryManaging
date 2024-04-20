@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import com.library.ensaf.projet.model.Book;
+import com.library.ensaf.projet.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,7 +37,8 @@ public class HistoryController {
     @Autowired
     UserRepository userRepo;
 
- 
+  @Autowired
+  BookRepository bookRepo;
 
     @PostMapping("/api/History/save")
     public ResponseEntity<?> BorrowBook(@RequestBody UserRequest req) {
@@ -97,6 +100,7 @@ List<History> Records=repo.findByBorrowDateIsNull();
 List<String> usernames=new ArrayList<String>();
 List<String> usernames2=new ArrayList<String>();
 
+List<Book> books = bookRepo.findAll();
 
 List<History> Confirmed=repo.findByBorrowDateIsNotNull();
 
@@ -123,6 +127,7 @@ model.addAttribute("Users", usernames);
 
 model.addAttribute("Confirmed", Confirmed);
 model.addAttribute("Users2", usernames2);
+model.addAttribute("allbooks", books);
         return "Admin";
     }
 

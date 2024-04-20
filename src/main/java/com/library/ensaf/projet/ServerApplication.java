@@ -19,11 +19,7 @@ public class ServerApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-	Book b = new Book();
-	b.setId("15b");
-	b.setTitle("Java EE");
-	b.setAuthor("Harry Potter");
-	br.save(b);
+
 
 	}
 }

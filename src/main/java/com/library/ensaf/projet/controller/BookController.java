@@ -10,13 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 //import org.springframework.web.bind.annotation.RestController;
 
 import com.library.ensaf.projet.model.Book;
@@ -41,6 +35,16 @@ public class BookController {
         List<Book> res = repo.findByAvailableTrue();
         model.addAttribute("Books", res);
         return "espaceClient";
+    }
+
+    @PostMapping("/addAbook")
+    public String addAbook(@ModelAttribute Book book) {
+        // Save the book to the database
+        book.setAvailable(true);
+
+        repo.save(book);
+        // Redirect to a success page or another appropriate page
+        return "redirect:/Admin"; // Assuming you have a page to display all books
     }
 
     @GetMapping("Client/SearchByTitle")
@@ -88,7 +92,23 @@ public class BookController {
         List<Book> savedBooks = repo.saveAll(books);
         return new ResponseEntity<>(savedBooks, HttpStatus.OK);
     }
+    @GetMapping("/delete/{NInv}")
+    public String deleteAbook(@PathVariable("NInv") Integer NInv) {
+        // Find the book by its ID
+        Book bookToDelete = repo.findByNInv(NInv).orElse(null);
 
+        // Check if the book exists
+        if (bookToDelete != null) {
+            // Delete the book from the repository
+            repo.delete(bookToDelete);
+            // Redirect to a success page or another appropriate page
+            return "redirect:/Admin"; // Assuming you have a page to display all books
+        } else {
+            // Handle the case where the book with the given ID does not exist
+            // Redirect to an error page or another appropriate page
+            return "redirect:/Admin"; // Redirecting to the same page for simplicity
+        }
+    }
 
 
 
