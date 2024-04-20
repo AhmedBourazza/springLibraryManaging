@@ -3,6 +3,7 @@ package com.library.ensaf.projet.controller;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Optional;
 
 import com.library.ensaf.projet.model.Book;
 import com.library.ensaf.projet.repository.BookRepository;
@@ -70,11 +71,37 @@ public class HistoryController {
         demandTreatement.setReturnDate(calendar.getTime());
     
         History savedHistory = repo.save(demandTreatement);
-    
+
         return new ResponseEntity<>(savedHistory, HttpStatus.OK);
     }
 
-    
+        @GetMapping("/History/Confirm/{id}")
+    public String ConfirmABorrow(@PathVariable Integer id) {
+
+
+
+        History demandTreatement = repo.findByBookAndReturned(id,false).get(0);
+
+
+        Calendar calendar = Calendar.getInstance();
+
+        demandTreatement.setBorrowDate(calendar.getTime());
+
+        calendar.add(Calendar.WEEK_OF_YEAR, 1);
+        demandTreatement.setReturnDate(calendar.getTime());
+
+        History savedHistory = repo.save(demandTreatement);
+
+            Optional<Book> optionalBook = bookRepo.findByNInv(id);
+
+
+            Book book = optionalBook.get();
+
+
+            book.setAvailable(false);
+            bookRepo.save(book);
+        return "redirect:Admin";
+    }
     @DeleteMapping("/api/History/Deny/{id}")
     public ResponseEntity<?> deleteHistoryById(@PathVariable Integer id) {
     repo.deleteByBookAndReturned(id, false);

@@ -80,6 +80,7 @@ public class BookController {
                 History history = new History();
                 history.setUser(550);
                 history.setBook(book.getNInv());
+                history.setReturned(false);
                 historyRepo.save(history);
 
 
