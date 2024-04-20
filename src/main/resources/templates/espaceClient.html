@@ -86,7 +86,7 @@
 		<nav>
 			<i class='bx bx-menu' ></i>
 			<a href="#" class="nav-link">User Space</a>
-			<form action="#" th:action="@{/Client/SearchByTitle}"  method="get" >
+			<form action="#" th:action="@{Client/SearchByTitle}"  method="get" >
 				<div class="form-input" >
 					<input type="search" id="searchInput" name="Title" placeholder="Search...">
 					<button type="submit" class="search-btn" ><i class='bx bx-search' ></i></button>
@@ -176,9 +176,10 @@
 								</td>
 								<td th:text="${book.author}"></td>
 								<td th:text="${book.editor}"></td>
-								<td><a href="#" th:attr="onclick=|saveBook('${book.NInv}')|" 
-									
-									><i class='bx bx-plus'></i></a></td>
+								<td>
+									<a th:href="@{/borrowBook/{id}(id=${book.id})}" onclick="return confirm('Are you sure you want to borrow this book?')">
+
+									<i class='bx bx-plus'></i></a></td>
 
 							</tr>
 							
@@ -454,46 +455,6 @@ var url2='/api/Books/'+id+'/updateAvailable'
 	<!-- CONTENT -->
 
 	
-	<script>
-        function search() {
-            var query = $('#searchInput').val();
-            $.ajax({
-                url: '/api/Books/SearchByTitle', 
-                type: 'GET',
-                data: { title: query },
-                success: function(data) {
-                    displayResults(data);
-                },
-                error: function(xhr, status, error) {
-                    console.error('Error:', error);
-                }
-            });
-        }
-
-        function displayResults(results) {
-            var resultsContainer = $('#searchResults');
-            resultsContainer.empty(); // Clear previous results
-            results.forEach(function(result) {
-                resultsContainer.append(
-					
-
-				'<td'>+result.Module+'</td>'+
-								'<td>'+	
-								'<p>'+result.Title+'</p>'+
-								'</td>'+
-								'<td>'+result.Author+'</td>'
-								+'<td>'+result.Editor+'</td>'+
-								'<td><a href="#"><i class="ri-arrow-turn-back-line"></i></a></td>'
-
-
-
-
-
-
-				);
-            });
-        }
-    </script>
 
 
 

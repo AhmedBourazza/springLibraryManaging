@@ -1,11 +1,11 @@
-package com.library.ensaf.server.repository;
+package com.library.ensaf.projet.repository;
 
 import java.util.List;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
-import com.library.ensaf.server.model.History;
+import com.library.ensaf.projet.model.History;
 
 @Repository
 public interface HistoryRepository extends MongoRepository<History,String> {

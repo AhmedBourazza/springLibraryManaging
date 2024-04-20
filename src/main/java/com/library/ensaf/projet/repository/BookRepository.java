@@ -1,4 +1,4 @@
-package com.library.ensaf.server.repository;
+package com.library.ensaf.projet.repository;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
-import com.library.ensaf.server.model.Book;
+import com.library.ensaf.projet.model.Book;
 
 @Repository
 public interface BookRepository extends MongoRepository<Book,String> {

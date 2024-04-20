@@ -1,8 +1,8 @@
-package com.library.ensaf.server.repository;
+package com.library.ensaf.projet.repository;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-import com.library.ensaf.server.model.Student;
+import com.library.ensaf.projet.model.Student;
 
 public interface StudentRepository extends MongoRepository<Student,String> {
     

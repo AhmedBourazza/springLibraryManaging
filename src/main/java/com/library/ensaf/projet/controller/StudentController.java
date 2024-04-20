@@ -1,4 +1,4 @@
-package com.library.ensaf.server.controller;
+package com.library.ensaf.projet.controller;
 
 import java.util.List;
 
@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.library.ensaf.server.model.Student;
-import com.library.ensaf.server.repository.StudentRepository;
+import com.library.ensaf.projet.model.Student;
+import com.library.ensaf.projet.repository.StudentRepository;
 
 @RestController
 @CrossOrigin

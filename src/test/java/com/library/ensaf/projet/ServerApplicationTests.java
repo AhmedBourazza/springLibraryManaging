@@ -1,4 +1,4 @@
-package com.library.ensaf.server;
+package com.library.ensaf.projet;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

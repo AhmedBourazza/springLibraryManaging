@@ -1,4 +1,4 @@
-package com.library.ensaf.server.model;
+package com.library.ensaf.projet.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;

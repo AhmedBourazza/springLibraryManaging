@@ -1,7 +1,7 @@
-package com.library.ensaf.server;
+package com.library.ensaf.projet;
 
-import com.library.ensaf.server.model.Book;
-import com.library.ensaf.server.repository.BookRepository;
+import com.library.ensaf.projet.model.Book;
+import com.library.ensaf.projet.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

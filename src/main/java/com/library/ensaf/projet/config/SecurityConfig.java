@@ -1,4 +1,4 @@
-package com.library.ensaf.server.config;
+package com.library.ensaf.projet.config;
 
 //import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

@@ -1,4 +1,4 @@
-package com.library.ensaf.server.controller;
+package com.library.ensaf.projet.controller;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -18,11 +18,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 //import org.springframework.web.bind.annotation.RestController;
 
-import com.library.ensaf.server.model.History;
-import com.library.ensaf.server.model.User;
-import com.library.ensaf.server.model.UserRequest;
-import com.library.ensaf.server.repository.HistoryRepository;
-import com.library.ensaf.server.repository.UserRepository;
+import com.library.ensaf.projet.model.History;
+import com.library.ensaf.projet.model.User;
+import com.library.ensaf.projet.model.UserRequest;
+import com.library.ensaf.projet.repository.HistoryRepository;
+import com.library.ensaf.projet.repository.UserRepository;
 
 @Controller
 @CrossOrigin

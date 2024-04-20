@@ -403,7 +403,7 @@ body {
 	color: var(--dark);
 }
 #content main .box-info li .text p {
-	color: var(--dark);	
+	color: var(--dark);
 }
 
 
@@ -454,8 +454,6 @@ body {
 	border-bottom: 1px solid var(--grey);
 }
 #content main .table-data .order table td {
-
-	padding-left: 1px ;
 	padding: 16px 0;
 }
 #content main .table-data .order table tr td:first-child {
