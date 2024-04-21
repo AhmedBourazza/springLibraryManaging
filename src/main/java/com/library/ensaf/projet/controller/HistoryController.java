@@ -100,7 +100,7 @@ public class HistoryController {
 
             book.setAvailable(false);
             bookRepo.save(book);
-        return "redirect:Admin";
+        return "redirect:/Admin";
     }
     @DeleteMapping("/api/History/Deny/{id}")
     public ResponseEntity<?> deleteHistoryById(@PathVariable Integer id) {

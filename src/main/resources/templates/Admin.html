@@ -188,10 +188,10 @@
 								<p  th:text="${Users[__${iStat.index}__]}"></p>
 								</td>
 								
-								<td><td><a href="#" th:href="@{'/History/Confirm/' + ${book.getBook()}}" target="_blank">
+								<td><a href="#" th:href="@{'/History/Confirm/' + ${book.getBook()}}" target="_blank">
 								<i class='bx bx-check'></i>
 							</a></td>
-								</td>
+
 								<td><a href="#"
 
 										><i class='bx bx-x'></i></a></td>
@@ -457,7 +457,6 @@ var url2='/api/Books/'+book+'/updateAvailable'
 					<table >
 						<thead>
 							<tr>
-								<th>Book</th>
 								<th>N°Inventory</th>
 								<th>User</th>
 								<th>Borrow Date</th>
@@ -469,7 +468,6 @@ var url2='/api/Books/'+book+'/updateAvailable'
 						<tbody >
 							<tr>
 								<tr th:each="book,iStat:${Confirmed}">
-									<td>here book image</td>
 									<td th:text="${book.book}"></td>
 									<td>	
 									<p  th:text="${Users2[__${iStat.index}__]}"></p>
