@@ -450,15 +450,16 @@ body {
 #content main .table-data .order table th {
 	padding-bottom: 12px;
 	font-size: 13px;
-	text-align: left;
+	text-align: center;
 	border-bottom: 1px solid var(--grey);
 }
 #content main .table-data .order table td {
 	padding: 16px 0;
+	text-align: center;
 }
 #content main .table-data .order table tr td:first-child {
-	display: flex;
-	align-items: center;
+
+	text-align: center;
 	grid-gap: 12px;
 	padding-left: 6px;
 }

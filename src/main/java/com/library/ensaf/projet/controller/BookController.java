@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import com.library.ensaf.projet.model.History;
+import com.library.ensaf.projet.model.User;
 import com.library.ensaf.projet.repository.HistoryRepository;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,22 +32,20 @@ public class BookController {
 
 
 
-    @GetMapping("Client")
-    public String getAllBooks(Model model) {
+    @GetMapping("/Client")
+    public String getAllBooks(Model model, HttpSession session) {
+        // Check if a user is logged in
+        if (session.getAttribute("user") == null) {
+            // If no user is logged in, redirect to the login page
+            return "redirect:/sign";
+        }
+
+        // If a user is logged in, proceed with fetching books
         List<Book> res = repo.findByAvailableTrue();
         model.addAttribute("Books", res);
         return "espaceClient";
     }
 
-    @PostMapping("/addAbook")
-    public String addAbook(@ModelAttribute Book book) {
-        // Save the book to the database
-        book.setAvailable(true);
-
-        repo.save(book);
-        // Redirect to a success page or another appropriate page
-        return "redirect:/Admin"; // Assuming you have a page to display all books
-    }
 
     @GetMapping("Client/SearchByTitle")
     public String searchByTitle(@RequestParam String Title,Model model) {//
@@ -65,27 +65,37 @@ public class BookController {
         List<Book> books = repo.findByAuthorContaining(Author);
         return new ResponseEntity<List<Book>>(books, HttpStatus.OK);
     }
-
     @GetMapping("/borrowBook/{id}")
-    public String borrowAbook(@PathVariable String id) {
+    public String borrowAbook(@PathVariable String id, HttpSession session) {
+        // Retrieve the user's ID from the session
+        User user = (User) session.getAttribute("user");
+        int userId = user.getIdentifier();
+
         Optional<Book> optionalBook = repo.findById(id);
-
-
+        if (optionalBook.isPresent()) {
             Book book = optionalBook.get();
+            book.setAvailable(false);
+            repo.save(book);
 
-
-                book.setAvailable(false);
-                repo.save(book);
-
-                History history = new History();
-                history.setUser(550);
-                history.setBook(book.getNInv());
-                history.setReturned(false);
-                historyRepo.save(history);
-
-
+            History history = new History();
+            // Set the user's ID obtained from the session
+            history.setUser(userId);
+            history.setBook(book.getNInv());
+            history.setReturned(false);
+            historyRepo.save(history);
+        }
 
         return "redirect:/Client";
+    }
+
+    @PostMapping("/addAbook")
+    public String addAbook(@ModelAttribute Book book) {
+        // Save the book to the database
+        book.setAvailable(true);
+
+        repo.save(book);
+        // Redirect to a success page or another appropriate page
+        return "redirect:/Admin"; // Assuming you have a page to display all books
     }
 
     @PostMapping("/")
@@ -111,6 +121,12 @@ public class BookController {
         }
     }
 
+    @GetMapping("/update/{NInv}")
+    public String updateAbook(@PathVariable("NInv") Integer NInv) {
+
+
+        return "redirect:/Admin"; // Assuming you have a page to display all books
+    }
 
 
     @PostMapping("/api/Books/{id}/updateAvailable")

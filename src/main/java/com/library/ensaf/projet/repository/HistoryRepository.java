@@ -19,5 +19,5 @@ public interface HistoryRepository extends MongoRepository<History,String> {
     List<History> deleteByBookAndReturned(Integer book, boolean returned);
 
 
-    
+    List<History> findByBorrowDateIsNotNullAndReturned(boolean returned);
 }

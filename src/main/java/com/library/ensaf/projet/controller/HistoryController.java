@@ -102,6 +102,23 @@ public class HistoryController {
             bookRepo.save(book);
         return "redirect:/Admin";
     }
+    @GetMapping("/returnBook/{id}")
+    public String returnBook(@PathVariable String id) {
+        Optional<History> optionalHistory = repo.findById(id);
+        if (optionalHistory.isPresent()) {
+            History history = optionalHistory.get();
+            // Update the history entry to mark the book as returned
+            history.setReturned(true);
+            Book b = bookRepo.findByNInv(history.getBook()).get();
+            b.setAvailable(true);
+            bookRepo.save(b);
+            repo.save(history);
+        }
+        return "redirect:/Admin";
+    }
+
+
+
     @DeleteMapping("/api/History/Deny/{id}")
     public ResponseEntity<?> deleteHistoryById(@PathVariable Integer id) {
     repo.deleteByBookAndReturned(id, false);
@@ -124,12 +141,13 @@ public class HistoryController {
     @GetMapping("/Admin")
     public String getHistoryWithDate(Model model) {
 List<History> Records=repo.findByBorrowDateIsNull();
+List<History> RecordsBorrowed = repo.findByBorrowDateIsNotNullAndReturned(false);
 List<String> usernames=new ArrayList<String>();
 List<String> usernames2=new ArrayList<String>();
 
 List<Book> books = bookRepo.findAll();
 
-List<History> Confirmed=repo.findByBorrowDateIsNotNull();
+List<History> Confirmed=repo.findByBorrowDateIsNotNullAndReturned(false);
 
 
 for (History history:Records){
@@ -146,10 +164,19 @@ String mail=user.getEmail();
 usernames2.add(mail);
 
 }
+        int borrowedBooksCount = RecordsBorrowed.size();
+        model.addAttribute("borrowedBooksCount", borrowedBooksCount);
+
+        long totalBooks = bookRepo.count();
+        model.addAttribute("totalBooks", totalBooks);
+
+        long totalUsers = userRepo.count();
+
+        // Ajouter le nombre total d'utilisateurs inscrits au modèle
+        model.addAttribute("totalUsers", totalUsers);
 
 
-
-model.addAttribute("Books", Records);
+        model.addAttribute("Books", Records);
 model.addAttribute("Users", usernames);
 
 model.addAttribute("Confirmed", Confirmed);
